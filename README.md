@@ -12,3 +12,5 @@ Du côté du front office, l'accent sera mis sur une interface utilisateur, avec
 ​
 
 L'objectif principal est de faire un endroit où tout le monde peut travailler ensemble, créer, trouver et partager des wikis de manière facile et intéressante.
+
+# Fonctionalités clés
