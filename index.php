@@ -1,7 +1,7 @@
 <?php
-include_once "app/controllers/UserController.php";
+include_once "app/controllers/AuthController.php";
 
-$userController = new UserController();
+$userController = new AuthController();
 
 
 if (isset($_POST['action'])) {
