@@ -14,17 +14,19 @@ class AuthController {
             require_once "app/views/register.php";
         }
     }
-    public function signIn($email, $password){
+    public function signIn($email, $password) {
         $userModel = new AuthModel();
-        $loginResult = $userModel->login($email, $password);
-        if ($loginResult) {
-            // var_dump($loginResult);
-           require_once "app/views/home.php";
-            
+        $userData = $userModel->login($email, $password);
+    
+        if ($userData) {
+            if ($userData->role_id == 1) {
+            require_once "app/views\AdminDashboard.php";
+            } if ($userData->role_id == 3) {
+                require_once "app/views\home.php";
+            }
         } else {
-            echo "error";
+            echo "Login faiiiled";
         }
     }
-
 }
 ?>
