@@ -4,6 +4,7 @@ include_once "app/models/AuthModel.php";
 class AuthController {
     
     public function signUp($name,  $email, $password) {
+        
         $ObjUser = new AuthModel();
         $signUpUser = $ObjUser->createUser($name, $email, $password);
         if ($signUpUser) {
@@ -24,6 +25,7 @@ class AuthController {
             } if ($userData->role_id == 3) {
                 require_once "app/views\home.php";
             }
+            var_dump($userData);
         } else {
             echo "Login faiiiled";
         }
