@@ -36,6 +36,19 @@ CREATE TABLE Tags (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(250)
 )ENGINE=InnoDB;
+CREATE TABLE wiki(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    status boolean not null default 0
+    id_user INT,
+    FOREIGN KEY (id_user) REFERENCES users(id),
+    id_category INT,
+    FOREIGN KEY (id_category) REFERENCES category(id),
+    id_tags INT,
+    FOREIGN KEY (id_tags) REFERENCES tags(id)
+ ENGINE=InnoDB;
+);
 CREATE TABLE Wiki (
 
     id INT AUTO_INCREMENT PRIMARY KEY,

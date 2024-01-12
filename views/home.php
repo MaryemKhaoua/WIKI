@@ -3,122 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiki App</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+     <!-- icon font awesome link -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
-<style>
-    /* Your styles go here */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-header, section, footer {
-    margin: 20px;
-}
-
-.wiki-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 15px;
-}
-
-form {
-    display: grid;
-    gap: 10px;
-    max-width: 400px;
-    margin: auto;
-}
-
-</style>
 <body>
-    <header>
-        <h1>Welcome to the Wiki App</h1>
-    </header>
-
-    <section id="wikis">
-        <h2>All Wikis</h2>
-        <div id="wikis-list">
-            <?php
-            // Fetch and display all wikis here using PHP
-            // Example using dummy data:
-            $dummyWikis = [
-                ["id" => 1, "title" => "Sample Wiki 1", "content" => "Lorem ipsum...", "category" => "Sample Category", "tags" => ["Tag1", "Tag2"]],
-                ["id" => 2, "title" => "Sample Wiki 2", "content" => "Lorem ipsum...", "category" => "Sample Category", "tags" => ["Tag3", "Tag4"]],
-                // Add more dummy wikis as needed
-            ];
-
-            foreach ($dummyWikis as $wiki) {
-                echo "<div class='wiki-card'>";
-                echo "<h3>{$wiki['title']}</h3>";
-                echo "<p>{$wiki['content']}</p>";
-                echo "<p>Category: {$wiki['category']}</p>";
-                echo "<p>Tags: " . implode(", ", $wiki['tags']) . "</p>";
-                echo "</div>";
-            }
-            ?>
-        </div>
-    </section>
-
-    <section id="add-wiki">
-        <h2>Add a New Wiki</h2>
-        <form name="contactForm" id="contactForm" method="post" action="?route=addwiki" enctype="multipart/form-data">
-                        <fieldset class="row">
-
-                        <div class="column lg-12 form-field" style="margin-bottom:30px">
-                                 <input type="file" class="u-fullwidth h-remove-bottom" placeholder="Image..." style="cursor : pointer;" accept=".jpg, .jpeg, .png," name="image">
-                            </div>
-                            
-                            <div class="column lg-12 form-field">
-                                <input name="title" id="cWebsite" class="u-fullwidth h-remove-bottom" placeholder="title" value="" type="text">
-                            </div>
-                            
-                            <div class="column lg-12 message form-field">
-                                <textarea name="description" id="cMessage" class="u-fullwidth" style="resize: none;" placeholder="description"></textarea>
-                            </div>
-                            
-                            <div class="column lg-6 tab-12 form-field"  style="cursor: pointer; " >
-                            <select name="category">
-                                <option value="">Choese Your Category...</option>
-                                <?php foreach($resultctgr As $ctgr): ?>
-                                    <option value="<?= $ctgr['id'] ?>"><?= $ctgr['name'] ?></option>
-                                    <?php endforeach ?>
-                                    <!-- Add more options as needed -->
-                                </select>                            
-                            </div>
-
-                            <div class="column lg-6 tab-12 form-field" style="margin-bottom:30px">
-                                <h4 style="margin: 0;">Choese The Tags :</h4>
-                                <div  style="cursor: pointer; overflow-y: scroll; max-height: 200px; padding:10px 20px">
-                                    
-                                    <?php foreach($resultstags as $resulttag): ?>
-                                        <div class="checkbox-container">
-                                            <input type="checkbox" id="checkbox_<?= $resulttag['id'] ?>" name="selectedTags[]" value="<?= $resulttag['id'] ?>">
-                                            <label for="checkbox_<?= $resulttag['id'] ?>"><?= $resulttag['name'] ?></label>
-                                        </div>
-                                    <?php endforeach; ?>
-                                        
-                                </div>
-                                        
-                            </div>
-                           
-                                        
-                            </div>                              
-
-                            
-
-                            <div class="column lg-12">
-                                <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large u-fullwidth" value="Add Article" type="submit">
-                            </div>
-                            
-                        </fieldset>
-                    </form>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Wiki App</p>
-    </footer>
+ <!-- start nav -->
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" href="index.html" style="color: #1F2532;"><span style="color: #597E52;" class="nav-brand-two">Wi</span>Ki</a> 
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					
+					<li class="nav-item">
+						<a class="nav-link navigation" href="about.html">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link ml-5 navigation" href="contact.html" >Contact</a>
+					</li>
+					<li class="nav-item">
+						<form class="d-flex" style="padding-top: 5px;">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                          </form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+    <main>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+    <div class="card">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top"
+        alt="Hollywood Sign on The Hill" />
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+          This is a longer card with supporting text below as a natural lead-in to
+          additional content. This content is a little bit longer.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp" class="card-img-top"
+        alt="Palm Springs Road" />
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+          This is a longer card with supporting text below as a natural lead-in to
+          additional content. This content is a little bit longer.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top"
+        alt="Los Angeles Skyscrapers" />
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+          additional content.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp" class="card-img-top"
+        alt="Skyscrapers" />
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+          This is a longer card with supporting text below as a natural lead-in to
+          additional content. This content is a little bit longer.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+    </main>
 </body>
 </html>

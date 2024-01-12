@@ -1,33 +1,54 @@
 <?php
-include_once "app/models/AuthModel.php";
-
+namespace App\controllers;
+use App\models\AuthModel;
 class AuthController {
     
-    public function signUp($name,  $email, $password) {
-        
-        $ObjUser = new AuthModel();
-        $signUpUser = $ObjUser->createUser($name, $email, $password);
-        if ($signUpUser) {
-            echo "Register Succefully";
-            require_once "app/views/SignIn.php";
+    public function signUp() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $name = $_POST["name"];
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+
+            $userModel = new AuthModel();
+            $userModel->setName($name);
+            $userModel->setEmail($email);
+            $userModel->setPassword($password);
+
+            if ($userModel->createUser()) {
+                echo "Register Successfully";
+                require_once "app/views/SignIn.php";
+            } else {
+                echo "Registration failed!";
+                require_once "app/views/register.php";
+            }
         } else {
-            echo "Registration failed!";
-            require_once "app/views/register.php";
+           echo "error";
         }
     }
-    public function signIn($email, $password) {
-        $userModel = new AuthModel();
-        $userData = $userModel->login($email, $password);
-    
-        if ($userData) {
-            if ($userData->role_id == 1) {
-            require_once "app/views\AdminDashboard.php";
-            } if ($userData->role_id == 3) {
-                require_once "app/views\home.php";
+
+    public function signIn() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+
+            $userModel = new AuthModel();
+            $userModel->setEmail($email);
+            $userModel->setPassword($password);
+        
+            $userData = $userModel->login();
+        
+            if ($userData) {
+                if ($userData->role_id == 1) {
+                    header("location: ?route=home");
+                } else {
+                    header("location: ?route=home");
+                }
+                
+            } else {
+                echo "Login failed";
             }
-            var_dump($userData);
         } else {
-            echo "Login faiiiled";
+            echo "error";
         }
     }
 }

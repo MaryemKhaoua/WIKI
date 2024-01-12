@@ -1,5 +1,5 @@
 <?php
-include_once "app/models/CAtgModel.php";
+namespace App\controllers;
 
 class CatgController{
         public function addCategory($name) {

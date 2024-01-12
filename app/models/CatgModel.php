@@ -1,6 +1,7 @@
 <?php
 
-include_once "core/DataBase.php";
+namespace App\models;
+use App\core\DataBase;
 
 class CatgModel extends DataBase{
 
@@ -13,13 +14,16 @@ class CatgModel extends DataBase{
         return $res;
     }
 
-    public function getCategories(){
+    public function getCategories() {
         $sql = "SELECT * FROM `category`";
-        $$query = $this->connexion()->query($sql);
-        while($array=$query->fetch_assoc()) {
-            $users[]=$array;
+        $query = $this->connexion()->query($sql);
+        $categories = [];
+
+        while ($category = $query->fetch(PDO::FETCH_ASSOC)) {
+            $categories[] = $category;
         }
-        return $users;
+
+        return $categories;
     }
 
     public function updateCatg($catgId, $newCatgName){

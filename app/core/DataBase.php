@@ -1,4 +1,8 @@
 <?php
+namespace App\core;
+use PDO;
+use PDOException;
+
 class DataBase{
     private $servername = "localhost";
     private $username = "root";

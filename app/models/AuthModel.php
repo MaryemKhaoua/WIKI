@@ -1,34 +1,64 @@
 <?php
 
-include_once "core/DataBase.php";
+namespace App\models;
+use App\core\DataBase;
+use PDO;
+use PDOException;
 
-class AuthModel extends DataBase{
+class AuthModel extends DataBase {
     
-    public function createUser($name, $email, $password) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $roleId = 1; 
+    private $id;
+    private $name;
+    private $email;
+    private $password;
+    private $roleId;
 
-        $sqlsignup = "INSERT INTO users (name, email, password, role_id) VALUES (:name, :email, :password, :roleId)";
-        $stmt = $this->connexion()->prepare($sqlsignup);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':email', $email);
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function setRoleId($roleId) {
+        $this->roleId = $roleId;
+    }
+
+    public function createUser() {
+        $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+
+        $sqlSignup = "INSERT INTO users (name, email, password, role_id) VALUES (:name, :email, :password, :roleId)";
+        $stmt = $this->connexion()->prepare($sqlSignup);
+        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $hashedPassword);
-        $stmt->bindParam(':roleId', $roleId);
+        $stmt->bindParam(':roleId', $this->roleId);
+        
         $res = $stmt->execute();
         return $res;
     }
     
-    public function login($email, $password) {
-        $rqtLogin = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->connexion()->prepare($rqtLogin);
-        $stmt->bindParam(':email', $email);
+    public function login() {
+        $sqlLogin = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->connexion()->prepare($sqlLogin);
+        $stmt->bindParam(':email', $this->email);
+        
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_OBJ);
-        if ($user !== false && password_verify($password, $user->password)) {
+        
+        if ($user) {
             return $user;
         }
         return false;
     }
-    
 }
 ?>
